@@ -69,7 +69,20 @@ for i, sentence in enumerate(sentence_list):
 print('=====================================================================================')
 # 전체 단어 수 출력
 print('Total word count: {}'.format(len(words)))
-print(words)
+
+# 중복 단어 제거 후 단어 수
+
+print('word count after removing duplicate words: {}'.format(len(list(set(words)))))
+
+# 중복 단어 제거 된 wordbook
+unique_words = sorted(list(set(words)))
+print (unique_words)
+
+#빈도수가 높은 단어 1위~20위 출력
+text = nltk.Text(words, name='NMSC') # 중복 제거 전 단어장 입력으로 사용
+
+pprint.pprint(text.vocab().most_common(20))
+
 #########################################
 # 4.다음 영어사전 단어정보 수집 및 매칭 #
 #########################################
