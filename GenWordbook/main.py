@@ -105,18 +105,18 @@ def get_dict(word):
     word_mean_list = [word]
     print((meaning_list))
     for mean in meaning_list:
-        word_mean = mean.select('span')[-1].get_text()
-        word_mean_list.append(word_mean) # ['Good', '좋은', '잘', '훌륭한']
+       word_mean = mean.select('span')[-1].get_text()
+       word_mean_list.append(word_mean) # ['Good', '좋은', '잘', '훌륭한']
 
     return word_mean_list
 
 total_dict_list = [] # 전체 [[단어1, 뜻1, 뜻2, 뜻3, 뜻4, 뜻5], [단어2,뜻1, 뜻2, 뜻3, 뜻4, 뜻5], ... ]
 for word in unique_words[:10]:
-    word_mean_list = get_dict(word.lower()) # [word, 뜻1, 뜻2, 뜻3, 뜻4, 뜻5]
-    if word_mean_list != None:
+     word_mean_list = get_dict(word.lower()) # [word, 뜻1, 뜻2, 뜻3, 뜻4, 뜻5]
+     if word_mean_list != None:
         total_dict_list.append(word_mean_list)
 
-pprint.pprint(total_dict_list)
+# pprint.pprint(total_dict_list)
 
 
 ##################
@@ -129,3 +129,18 @@ df_dict.to_excel('words.xlsx', index=False)
 #######################
 # 6.시각화(WordCloud) #
 #######################
+# mask 만들기
+circle_mask = np.array(Image.open("./imgs/circle.png"))
+cnu_mask = np.array(Image.open("./imgs/cnu_text.png"))
+wc = WordCloud(mask=circle_mask,
+               background_color='white',
+               width=500,
+               height=500,
+               max_words=200,
+               max_font_size=100)
+
+
+
+fd_names = nltk.FreqDist(words)
+wc.generate_from_frequencies(fd_names)
+wc.to_file('wordcloud2.png')
